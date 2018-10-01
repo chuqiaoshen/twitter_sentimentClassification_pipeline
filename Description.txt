@@ -1,0 +1,29 @@
+### TextProcessing Sentiment + Classification Pipeline Design description
+CatherineShen 20180831
+
+### User cases
+* Given a bunch of scraped twitter csvs in one specific folder,
+this code will generate sentiment and text classification columns based on the input csvs
+* this version can be used to modify the rest of the info and run 4 kernels or any given number simultaneously(for details, please refer to readme.md before using this code)
+
+### Major structure of this code
+1. Sentiment analysis
+* All the twitter text will be cleaned from textCleaning.py before it was put into the sentiment classifier in SentimentModel.py
+Several text cleaning skills was used such as remove unicode,replace URL,AT,HASH,replace contraction,replace ABV,replace Negations reduce stopwords.
+
+* Sentiment model itself trained from twitter140 datasets using Naive Bayes MultinomialNB model
+
+* the result and weight of model was stored and reused in SentimentModel.py to classify the sentiment score of tweets
+
+2. textClassification
+* text classification use simple key word matching methods based on 3-grams to classify the tweets into 4 categories.
+the matching dictionary was stored in matchdic.py
+
+* Category which has the highest voting score will be the category of that tweet
+
+3. Connect the whole process
+* runme.py file connect code of sentiment analysis and text classification
+
+* logger was added to the whole process to track bugs and record process
+
+* csv files in input folder will be read-in, processed and stored into excel files in the same directory of input with folder name end with 'output'
